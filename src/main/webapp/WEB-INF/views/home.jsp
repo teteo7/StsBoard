@@ -10,5 +10,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<p>여기는 홈이에요</p>
 </body>
 </html>
