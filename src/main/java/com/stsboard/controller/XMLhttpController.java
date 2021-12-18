@@ -1,4 +1,4 @@
-package com.stsboard.various;
+package com.stsboard.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
