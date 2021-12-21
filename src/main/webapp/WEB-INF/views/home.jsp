@@ -1,7 +1,5 @@
 <%@ page language= "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <html>
@@ -16,22 +14,40 @@
 <P>  The time on the server is ${serverTime}. </P>
 <p>여기는 홈이에요</p>
 
-	<form>
+
+<!--Button을 누르면 idCheck로 요청  -->
+	<form id="loginForm">
 		<input type="text" name="id1" value="TestId"> <br>
 		<input type="text" name="pw1" value="TestPw"> <br>
 
-		<Button type="Button" id="idCheck">전송</Button>
+		<Button class="login_url" type="Button" id="idCheck">전송</Button>
 	</form>
 
-<script src="${path}/resources/js/jquery-3.6.0.min.js"></script>
-
+<script type="text/javascript" src="${path}\resources\js\jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${path}\resources\js\ajax.js"></script>
 <script>
-
 $(function() {
-	idCheck();
+    var url = $('#loginForm .login_url').attr('id');
+    console.log("url check: "+url);
+    ajax(url);
+    
+});
+</script>
+
+<!-- <script>
+// 작성한 메소드를 선언해줘야 한다.
+$(function() {
+	var url = $('Button').attr('id');
+	idCheck(url);
 });
 
-
+// 테스트 테스트 함수
+// $.ajax의 url: 데이터를 처리할 controller
+// method: 전송방식
+// contentType: 보내는 데이터 타입
+// data: 서버에서 받을 데이터 타입.
+   
+   
 function idCheck(){
 $("#idCheck").on('click', function() {
 	
@@ -39,19 +55,15 @@ $("#idCheck").on('click', function() {
 	var pw = $("input:text[name='pw1']").val();
 	var id2 = id;
 	var box = {userId:id, userPw:pw};
+	var url = $('Button').attr('id'); 
 	
+
+
+
 	
 	console.log(typeof pw);
 	console.log(pw);
-	
-	/* document.writeln(typeof id)
-	document.writeln(id)
-	
-	document.writeln(typeof pw)
-	document.writeln(pw)
-	
-	document.writeln(typeof box)
-	document.writeln(box) */
+	console.log(url);
 	
 	$.ajax({
 		url:"idCheck",
@@ -60,68 +72,18 @@ $("#idCheck").on('click', function() {
 		data: JSON.stringify(box),
 		success:function(data){
 			if(data=="1"){
-				alert("아이디 중복");
+				alert("잘됐어요");
 				console.log("잘됬어요");
+				console.log(data);
 			}
 		}, error:function(request,status,error){
 			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
-	
-	
 });
-}  
+}
+</script> -->
+ 
 
-/*  function idCheck(){
-	$("#idCheck").on('click', function() {
-		
-		var id = $("input:text[name='id1']").val();
-		$.ajax({
-			url:"idCheck",
-			method:"GET",
-			contentType:'application/html;charset=utf-8',
-			dataType:"json",
-			data:{userId:id},
-			success:function(data){
-				if(data=="1"){
-					alert("아이디 중복")
-					console.log("잘됬어요");
-				}
-			}, error:function(request,status,error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	});
-}   */
-
-
-
-
-/*  function idCheck(){
-	
-	$("#idCheck").on('click', function() {
-		$.ajax({
-			url:"idCheck",
-			type:"GET",
-			contentType:"html" ,
-			dataType:"html",
-			
-			success:function(data){
-				if(data==1){
-					alert("아이디 중복")
-					console.log("잘됬어요");
-				}
-			}, error:function(request,status,error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	});
-	
-}  */
-
-
-
-
-</script>
 </body>
 </html>

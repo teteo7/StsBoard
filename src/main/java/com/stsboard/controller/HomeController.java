@@ -26,7 +26,7 @@ public class HomeController {
 	}
 	
 	 @PostMapping("/idCheck")
-	 @ResponseBody 
+	 @ResponseBody
 	 public String idCheck(@RequestBody Map<String, Object> map){
 		 System.out.println("여기는 idCheck");
 		 String userId = (String) map.get("userId");
