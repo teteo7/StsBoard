@@ -7,8 +7,8 @@
 // method: 전송방식
 // contentType: 보내는 데이터 타입
 // data: 서버에서 받을 데이터 타입.
-//어떻게 url에 넣어주지.. url에 IdCheck를 넣어주면 잘된다. post전송 방식은 아닌듯
-// <a href 로 넘겨주면 되나? header.jsp 참조
+
+// url 경로 같게
    
 function ajax(url=""){
 $("#"+url).on('click', function() {
@@ -17,7 +17,7 @@ $("#"+url).on('click', function() {
 	var pw = $("input:text[name='pw1']").val();
 	var box = {userId:id, userPw:pw};
 	
-	console.log(typeof pw);
+
 	console.log(pw);
 	console.log(url);
 	
