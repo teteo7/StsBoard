@@ -14,7 +14,7 @@
 	<p>여기는 홈이에요</p>
 
 	<form action="/upload_image" id="image_upload_form" method="post" enctype="multipart/form-data">
-		<input type="file" name="uploadFile" multiple>
+		<input type="file" name="upload_file" multiple>
 		<input type="submit">
 	</form>
 
