@@ -92,11 +92,12 @@
 		</dependency>
 
 		<!-- Servlet -->
+		<!-- 2.5 -> 3.1 -->
+		<!--<scope>provided</scope> 제거 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
