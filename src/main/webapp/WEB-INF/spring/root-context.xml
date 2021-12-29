@@ -3,21 +3,45 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	
+		<!-- 
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/testdb?useSSL=false"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/testdb?useSSL=false"/>
+		-->
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
+			<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
+			<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/testdb?useSSL=false"/> 
+			<property name="username" value="root"></property> 
+			<property name="password" value="root"></property> 
+		</bean>
 		
-		<bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-			
+		
+		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+      		<constructor-arg ref="hikariConfig" />
+   		</bean>
+   		
+	   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	      <property name="dataSource" ref="dataSource"></property>
+	      <property name="mapperLocations" value="classpath:/mapper/*.xml"></property><!-- 이거는 mapper, sql위치경로 -->
+	   </bean>
+	   
+	   <mybatis-spring:scan base-package="com.stsboard.mapper"/> <!-- java interface경로 -->
+	   
+<!-- <property name="mapperLocations" value="classpath:/mapper/*.xml"></property>이거는 mapper, sql위치경로 -->	
+	
+<!-- 		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property> 
 			<property name="url" value="jdbc:mysql://localhost:3306/testdb?useSSL=false"></property> 
 			<property name="username" value="root"></property> 
 			<property name="password" value="root"></property> 
-		</bean>
+		</bean> -->
 	
 	
 		
